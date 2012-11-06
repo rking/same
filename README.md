@@ -1,9 +1,16 @@
 same: a tool to find duplicate lines of code
 ============================================
 
+> "Mechanical means can't prove good code, but they can often prove bad code.""
+
+This is the beginning of a nifty tool to combat Copy & Paste attacks.
+
 Some [example output](https://gist.github.com/2356c4677edb49eca331#L140)
 showing places in [pry](http://github.com/pry/pry) that are duplicated. Note
 that this is with the default settings. Here are the options:
+
+Usage
+-----
 
 * -f filter       filter all files with this filter (none, trim, baan, java) [default: none]
 * -m minimalSize  minimal fragment length [default: 10]
@@ -25,7 +32,8 @@ Prerequisite
 ------------
 
 You have to have a Java Runtime Environment. For Gentoo, I emerged
-`dev-java/icedtea-bin`, and for SuSE Linux I installed `java-1_6_0-openjdk`.
+`dev-java/icedtea-bin`, and for SuSE Linux I installed `java-1_6_0-openjdk`. OS
+X comes with one by default as far as I know.
 
 Installation
 ------------
@@ -34,6 +42,17 @@ Currently, it has this odd deal where the `same-classes.zip` file has to live
 in the same dir as the `same` script. Here's a quick way to get it to work:
 
     cp same{,-classes.zip} ~/bin/
+
+Or, you can just run it from the cloned dir, e.g.:
+
+    cd ~/src
+    git clone http://github.com/rking/same
+    cd my-proj
+    ~/src/same/same -f trim **/*.c
+
+So that means you could, in your `~/.bashrc` or `~/.zshrc`:
+
+    alias same=~/src/same/same
 
 Note that I (☈king) am no Java pro, so if you have any problems, I'd love to
 help walk you through them and make this README better. Or, of course, if *you*
