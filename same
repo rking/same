@@ -1,6 +1,11 @@
 #!/bin/sh
-#TODO: This looks up the directory where this script is located.  Can this be done simpler? --MK
-DIRECTORY_OF_THIS_SCRIPT=`dirname "\`type $0\`"`
-JAVA_HOME_DIR=/opt/java
-JAVA_STD_CLASSES=$JAVA_HOME_DIR/lib/classes.zip
-$JAVA_HOME_DIR/bin/java -asyncgc -mx100M -classpath $DIRECTORY_OF_THIS_SCRIPT/same-classes.zip:$JAVA_STD_CLASSES same.textui.SameCLI $*
+DIRECTORY_OF_THIS_SCRIPT=`dirname $0`
+if [ -z "$JAVA_HOME_DIR" ]; then
+    locate classes.zip
+    cat <<EOT
+Please set JAVA_HOME_DIR to a dir from a Java VM containing classes.zip
+EOT
+    exit 1
+fi
+JAVA_STD_CLASSES=$JAVA_HOME_DIR/classes.zip
+java -classpath $DIRECTORY_OF_THIS_SCRIPT/same-classes.zip:$JAVA_STD_CLASSES same.textui.SameCLI $*
