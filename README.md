@@ -12,16 +12,20 @@ that this is with the default settings. Here are the options:
 Usage
 -----
 
-* -f filter       filter all files with this filter (none, trim, baan, java) [default: none]
+* -f filter       filter all files with this filter (none, trim, baan, java)
 * -m minimalSize  minimal fragment length [default: 10]
 
 The `trim` filter is especially useful, since much duplication gets
-indented/outdented immediately after copy and pasting. There should be more
-filters (and rewriting this from Java would make better filtration possible.)
-For now, you can rely on VCS and do like this (using zsh's recursive globbing):
+indented/outdented immediately after copy and pasting. The `same` script
+actualy defaults this to on, but you can override it with `-f none` (though I
+doubt you'll ever really want to).
+
+There should be more filters (and rewriting this from Java would make better
+filtration possible.) For now, you can rely on VCS and do like this (using
+zsh's recursive globbing):
 
     sed -i 's/\s*end//' **/*.rb
-    same -f trim -m 3 **/*.rb
+    same -m 3 **/*.rb
     git checkout .
 
 See how it uses a more aggressive `-m` limit. This can be very informative, but
@@ -48,7 +52,7 @@ Or, you can just run it from the cloned dir, e.g.:
     cd ~/src
     git clone http://github.com/rking/same
     cd my-proj
-    ~/src/same/bin/same -f trim **/*.c
+    ~/src/same/bin/same **/*.c
 
 So that means you could, in your `~/.bashrc` or `~/.zshrc`:
 
