@@ -41,18 +41,18 @@ Installation
 Currently, it has this odd deal where the `same-classes.zip` file has to live
 in the same dir as the `same` script. Here's a quick way to get it to work:
 
-    cp same{,-classes.zip} ~/bin/
+    cp bin/* ~/bin/
 
 Or, you can just run it from the cloned dir, e.g.:
 
     cd ~/src
     git clone http://github.com/rking/same
     cd my-proj
-    ~/src/same/same -f trim **/*.c
+    ~/src/same/bin/same -f trim **/*.c
 
 So that means you could, in your `~/.bashrc` or `~/.zshrc`:
 
-    alias same=~/src/same/same
+    alias same=~/src/same/bin/same
 
 Note that I (☈king) am no Java pro, so if you have any problems, I'd love to
 help walk you through them and make this README better. Or, of course, if *you*
