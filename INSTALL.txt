@@ -1,0 +1,18 @@
+same: Installation instructions
+===============================
+
+To compile, you need to have:
+ - ant (which needs a JDK 1.1 or higher Java runtime);
+ - a JDK 1.1 or higher Java compiler (Sun classic or modern, jikes,
+   Visual J++);
+ - optionally JUnit (tested with versions 3.2 and 3.5).
+
+To configure before compilation, you need to
+ - change same-build.properties as you see fit.
+
+To compile, you need to
+ - run "ant".
+
+To install, you should
+ - choose same or same.bat, and adapt it where necessary.
+ - put it, together with same-classes.zip, in a suitable location.

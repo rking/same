@@ -1,0 +1,44 @@
+This file describes the changes made to versions of 'same'.
+
+========
+
+Version 1.2: First open source version.
+
+ * Renamed tool from 'duploc' to 'same', because a tool named 'duploc' with
+   similar functionality already exists.
+ 
+ * Reorganized the package structure.  The entry point for the command line
+   interface is now same.textui.SameCLI.
+
+========
+
+Version 1.1: Some bug fixes, refactoring.
+
+ * Added the 'none' filter, which is now also the default.  This does not
+   filter the input at all.
+
+ * Added some more statistics about the matches.
+
+ * Fixed a bug that caused matches to be skipped sometimes.  Unfortunately
+   performance suffered.  But:
+
+ * Fixed a bug that caused many comparisons to be done more than once.
+   That made performance come back to an acceptable level.
+
+ * Fixed a bug that caused the 'number of filtered lines' to be too
+   high.
+
+ * Now uses a 64-bit hash code instead of a 32-bit one.  Does not seem
+   to reduce the number of potential matches significantly.
+
+ * Moved all classes from the default package to com.baan.tools.duploc
+   and com.baan.tools.test.duploc.
+
+ * Separated the end-user I/O from the functionality.  The entry point
+   is now com.baan.tools.duploc.DupLocCLI (was previously DupLoc).
+   This step makes it possible to create a new front end, which
+   receives events through DupLoc.IListener.
+
+========
+
+Version 1.0: Initial published version

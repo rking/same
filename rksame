@@ -1,0 +1,4 @@
+#!/bin/sh
+DIRECTORY_OF_THIS_SCRIPT=`dirname "\`type $0\`"`
+JAVA_STD_CLASSES=$JAVA_HOME_DIR/lib/classes.zip
+java -mx100M -classpath $DIRECTORY_OF_THIS_SCRIPT/same-classes.zip:$JAVA_STD_CLASSES same.textui.SameCLI $*

@@ -1,0 +1,9 @@
+<project name="install" default="install">
+	<target name="install">
+		<copy file="${same.classes.zip}" tofile="same-classes.zip" overwrite="yes"/>
+	</target>
+
+	<target name="uninstall">
+		<delete file="same-classes.zip"/>
+	</target>
+</project>

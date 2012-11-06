@@ -1,0 +1,120 @@
+<!-- You shouldn't need to change anything in this file. -->
+
+<project name="same" default="all">
+	
+	<property file="same-build.properties"/>
+
+	<property name="classes.dir" value="${output.dir}/classes"/>
+	<property name="classes-test.dir" value="${output.dir}/classes-test"/>
+	<property name="build.dir" value="${output.dir}/build-${same.build.name}"/>
+
+	<property name="same.zip" value="${build.dir}/same-${same.build.name}.zip"/>
+	<property name="same.src.zip" value="${build.dir}/same-${same.build.name}-src.zip"/>
+	<property name="same.classes.zip" value="${build.dir}/same-classes.zip"/>
+	
+	<property name="location" value="here"/>
+
+	<target name="all" depends="build,install" description="Build and install"/>
+	<target name="build" depends="package,dist-src,dist" description="Build (also creates distribution files)"/>
+	
+	<patternset id="text-files">
+		<include name="build.xml"/>
+		<include name="here-install.xml"/>
+		<include name="same"/>
+		<include name="same.bat"/>
+		<include name="same-build.properties"/>
+		<include name="same-info.properties"/>
+		<include name="README.txt"/>
+		<include name="TODO.txt"/>
+		<include name="INSTALL.txt"/>
+		<include name="GPL.txt"/>
+		<include name="ChangeLog"/>
+		<include name="src/**/*.java"/>
+		<include name="src-test/**/*.java"/>
+	</patternset>
+	
+	<target name="init">
+		<tstamp/>
+		<mkdir dir="${classes.dir}"/>
+		<mkdir dir="${classes-test.dir}"/>
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+	<target name="compile" depends="init" description="Compile the code">
+		<javac srcdir="src" destdir="${classes.dir}"/>
+		<filter token="same.build.date" value="${TODAY}"/>
+		<filter token="same.build.time" value="${TSTAMP}"/>
+		<filter token="same.build.name" value="${same.build.name}"/>
+		<copy file="same-info.properties" todir="${classes.dir}/same" filtering="yes" overwrite="yes"/>
+	</target>
+
+	<target name="compile-test" depends="init,compile" description="Compile the unit tests">
+		<javac srcdir="src-test" destdir="${classes-test.dir}" classpath="${classes.dir}:${junit.jar}"/>
+	</target>
+
+	<target name="run-test" depends="compile-test" description="Run the unit tests">
+		<java fork="true" failonerror="true" classname="junit.textui.TestRunner">
+			<classpath>
+				<pathelement path="${classes.dir}"/>
+				<pathelement path="${classes-test.dir}"/>
+				<pathelement path="${junit.jar}"/>
+				<pathelement path="${java.class.path}"/>
+			</classpath>
+			<arg value="test.same.AllTestsSame"/>
+		</java>
+	</target>
+
+	<target name="package" depends="run-test" description="Package the compilation result as a zip file">
+		<zip zipfile="${same.classes.zip}" basedir="${classes.dir}"/>
+	</target>
+
+	<target name="dist" depends="package" description="Create a binary distribution file">
+		<zip zipfile="${same.zip}">
+			<fileset dir=".">
+				<include name="same"/>
+				<include name="same.bat"/>
+				<include name="README.txt"/>
+				<include name="TODO.txt"/>
+				<include name="GPL.txt"/>
+				<include name="INSTALL.txt"/>
+				<include name="ChangeLog"/>
+			</fileset>
+			<fileset dir="${build.dir}">
+				<include name="same-classes.zip"/>
+			</fileset>
+		</zip>
+	</target>
+
+	<target name="dist-src" description="Create a source distribution file">
+		<zip zipfile="${same.src.zip}" basedir=".">
+			<patternset refid="text-files"/>
+		</zip>
+	</target>
+
+	<target name="clean" description="Clean up">
+		<delete dir="${classes.dir}"/>
+		<delete dir="${classes-test.dir}"/>
+		<delete dir="${build.dir}"/>
+		<ant antfile="here-install.xml" target="uninstall"/>
+	</target>
+	
+	<target name="install" depends="package" description="Install to system given with -Dlocation=... (default is 'here')">
+		<ant antfile="${location}-install.xml"/>
+	</target>
+
+	<target name="uninstall" description="Uninstall from system given with -Dlocation=... (default is 'here')">
+		<ant antfile="${location}-install.xml" target="uninstall"/>
+	</target>
+
+	<target name="dos2unix">
+		<fixcrlf cr="remove" srcdir=".">
+			<patternset refid="text-files"/>
+		</fixcrlf>
+	</target>
+
+	<target name="unix2dos">
+		<fixcrlf cr="add" srcdir=".">
+			<patternset refid="text-files"/>
+		</fixcrlf>
+	</target>
+</project>

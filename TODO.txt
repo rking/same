@@ -1,0 +1,29 @@
+To-do list for 'same'
+=====================
+
+This list is more-or-less in priority order.
+
+ * Remove double entries from the list of input files.
+
+ * Fix bug: some duplicate parts are shown more than once.
+   For every match found, perform a 'union' with all earlier matches.
+   If a union exists, then replace the earlier match with the union.
+
+ * Specify available filters in properties file, so that filters
+   can be written by others too.
+
+ * Print extra statistic: number of lines per second.
+
+ * Print the filter at the beginning of the output.
+
+ * Describe the filters, either in the code, or in a properties file.
+   Show in output, and show all descriptions with the usage message.
+ 
+ * Maximum performance.
+ 
+ * Allow filters to have options.
+ 
+ * Some way to allow not-completely-contiguous matches, without a lot of
+   performance loss.
+ 
+ * Some way to do approximate matching.
