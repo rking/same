@@ -41,7 +41,7 @@
 	</target>
 
 	<target name="compile" depends="init" description="Compile the code">
-		<javac srcdir="src" destdir="${classes.dir}"/>
+                <javac srcdir="src" destdir="${classes.dir}" includeantruntime="false" />
 		<filter token="same.build.date" value="${TODAY}"/>
 		<filter token="same.build.time" value="${TSTAMP}"/>
 		<filter token="same.build.name" value="${same.build.name}"/>
