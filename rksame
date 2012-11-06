@@ -3,7 +3,7 @@ DIRECTORY_OF_THIS_SCRIPT=`dirname $0`
 if [ -z "$JAVA_HOME_DIR" ]; then
     locate classes.zip
     cat <<EOT
-Please set JAVA_HOME_DIR to a dir from a Java VM containing classes.zip"
+Please set JAVA_HOME_DIR to a dir from a Java VM containing classes.zip
 EOT
     exit 1
 fi
