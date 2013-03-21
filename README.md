@@ -73,6 +73,8 @@ Thanks
 
 Huge thanks to Marnix Klooster, who wrote the original. This is his Thanks:
 
+-----
+
 Thanks to Baan for giving me the opportunity to write
 this software, and to make it open source.
 
